@@ -1,0 +1,112 @@
+body {
+
+    background-image: url(../images/kagaya_art_celestial.jpg);
+    background-size: cover;
+    color: limegreen;
+    /*background: rgba(255,255,255,0.1);*/
+
+}
+
+.container{
+    /*border-left: groove RGB(0,255,64);*/
+}
+
+.empty {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    display: inline-block;
+
+}
+
+.form {
+    margin: auto;
+}
+
+.map {
+    float:right;
+    margin: auto;
+    margin-right: 20%;
+    border-image: url(../images/border.png) 30 repeat repeat;
+    border-width: medium;
+
+}	
+
+.rightBorder {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-image: url(../images/jellyfish_vert.png);
+    /*border-right: groove RGB(0,255,64);*/
+    display: inline-block;
+
+
+}
+
+.bottomBorder {
+    width: 40px;
+    height: 40px;
+    background-image: url(../images/jellyfish_hor.png);
+    background-size: cover;
+    display: inline-block;
+
+}
+
+.rbBorder {
+    width: 40px;
+    height: 40px;
+    background: url(../images/jellyfish_h+v.png);
+    background-size: cover;
+    display: inline-block;
+    /*box-sizing: border-box;*/
+
+
+}
+.inline{
+display: inline-block;
+}
+
+.row {
+    display: block;
+
+}
+
+fieldset {
+	background: rgba(255,255,255,0.2);
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+	
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+input[type="text"], 
+input[type="password"] {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+    width: 200px;
+}
+
+select {
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+input[type="submit"] {
+    font-size: 1.2em;
+    padding: 5px;
+}
+
+

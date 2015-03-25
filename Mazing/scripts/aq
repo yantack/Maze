@@ -1,0 +1,49 @@
+Создать функцию Maze.generate(options), где options:
+ width — кол-во клеток по ширине
+ height — кол-во клеток по длине
+ possiblePaths — кол-во возможных путей в лабиринте. если не указан — лабиринт просто случайный.
+ start — точка входа в лабиринт. если не указан — случайная
+ finish — точка выходы из лабиринта. если не указан — случайная
+
+результатом выполнения функции должен быть объект класса Maze c:
+• data — read-only свойство, содержащее двумерный массив ячеек лабиринта. Каждая ячейка должна представлять собой объект класса Maze.Cell формата {top: true/false, left: true/false, bottom: true/false, right: true/false}
+• getPaths(start, finish) — возвращает массив объектов класса Maze.Path с read-only свойством data — массивом координат ячеек {x:Num, y:Num} и read-only ссылкой на сам лабиринт Maze, ищет все пути между указанными точками старт/финиш или между вход/финиш или старт/выход из лабиринта.
+
+Создать объект Maze.View:
+• init(domElement)
+• render(maze/path) — отображения лабиринта или пути в лабиринте
+
+
+Использование:
+
+    var maze = Maze.generate({
+        width: 10,
+        height: 10,
+        possiblePaths: 3,
+        start: {x:0, y:0},
+        finish: {x:10, y:10}
+    });
+
+
+    var view = new Maze.View(document.querySelector('#maze'));
+    view.render(maze);
+    var paths = maze.getPaths();
+
+    setTimeout(function () {
+        view.render(paths[0]);
+    }, 10000);
+
+
+    setTimeout(function () {
+        view.render(Maze.generate({
+            width: 5,
+            height: 5
+        }));
+    }, 20000);
+
+    На эту неделю задание:
+    Доделать лабиринт, чтоб он на 100% соответствовал требуемому АПИ.
+    Сделать отрисовку лабиринта и путей на канвасе.
+    Всякие анимации поиска пути, прохождения пути, танчики, шарики, змейки и т.п. приветствуются.
+     Т.е. Сделать Maze.CanvasView и Maze.HtmlView
+
