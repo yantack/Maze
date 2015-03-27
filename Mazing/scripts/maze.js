@@ -6,7 +6,10 @@
 function Maze(maze){
     var data = maze;
     var Path = [];
-    Object.defineProperty(this, "Data", {get : function(){ return data; }});
+    Object.defineProperty(this, "data", {
+        get : function(){ return data; },
+        set : function(){  }
+    });
     Object.defineProperty(this, "setPath", {set : function(value) {Path.push(value);}});
     this.getPath = function() { return Path; };
 
@@ -19,6 +22,7 @@ Maze.Cell = function (val,right,bottom,left,top){
     this.left = left;
     this.val = val;
     this.visited = false;
+    this.Set = 'empty';
 
 }
 
@@ -35,6 +39,9 @@ Maze.generate = function(options) {
     end[0] = options.end[0];
     end[1] = options.end[1];
     var paths = options.paths;
+    var getPaths = [];
+    var cases =['up','left','right','down'];
+
     if(height < options.end[1]+1 && width<options.end[0]+1)
         alert('width and height must be more or equal to 8, or use Maze generate to configure generation.');
 
@@ -52,7 +59,7 @@ Maze.generate = function(options) {
     maze[start[0]][start[1]].visited = true;
         var queue = start;
 
-    while (queue.length != 0) {
+    while (queue.length) {
 
             var y = queue.shift();
             var x = queue.shift();
@@ -90,176 +97,90 @@ Maze.generate = function(options) {
 
         }
 
-
-
-    curVal = maze[end[1]][end[0]].val;
-    console.log(curVal)
-
-    maze[end[1]][end[0]].val = 'Q';
-
-    while (curVal > 1) {
-        x = end[1];
-        y = end[0];
+    while (curVal > 1){
+        var x = end[1];
+        var y = end[0];
         console.log(end);
         console.log(curVal);
-        var exit = 0;
-
-        // check each of the neighbours (up down left right)
-        for(var i = -1; i <= 1; i++) {
-            for(var j = -1; j <= 1; j++) {
-                if (Math.abs(i) == Math.abs(j) || y+i < 0 || y+i >= height || x+j < 0 || x+j >= width )
-                    continue;
-
-                if (maze[y+i][x+j].val == curVal-1 && maze[y+i][x+j].visited == true) {
-                    end = [y+i, x+j];
-                    curVal = maze[end[1]][end[0]].val;
-                    maze[y+i][x+j].val = 'Q';
-                    maze[y + i][x + j].visited = false;
-                    //setPath = (x + j);
-                    //setPath = (y + i);
-
-                    if ((y + i) > y && (x + j) == x) {
-                     maze[y + i][x + j].top = true;
-                        maze[y][x].bottom = true;
-                    } else if ((y + i) < y && (x+j) == x) {
-                        maze[y + i][x + j].bottom = true;
-                         maze[y][x].top = true;
-                    }else if ((y + i) == y && (x+j) > x) {
-                        maze[y + i][x + j].left = true;
-                        maze[y][x].right = true;
-                    }else if ((y + i) == y && (x+j) < x) {
-                        maze[y + i][x + j].right = true;
-                        maze[y][x].left = true;
-                    }
-                    exit = 1;
-                    break;
-                }
-
-            }
-            if (exit == 1)
-                break;
-
-        }
-
-    }
-	
-(function Paths() {
-
-    //var maze = mazes.getData;
-    var end =[];
-    var curVal = 0;
-    var paths = options.paths;
-    var getPaths = [];
-    end[0] = maze.length-1;
-    end[1] = maze[0].length-1;
-    console.log(end);
-    var height = maze.length;
-    var width = maze.length;
-    curVal = maze[end[1]][end[0]].val;
-    var cases =['up','left','right', 'down'];
-    var exit = 0;
-
-    while (exit != 1){
-        var x = end[0];
-        var y = end[1];
-        console.log(end);
-        console.log(curVal);
-    console.log(getPaths);
+        console.log(getPaths);
 
         cases.sort(function() { return Math.random() - Math.random() } );
         console.log(cases);
 
-    switch (cases[0]){
+        switch (cases[1]){
 
-        case 'left':{
-            if (x -1 < 0)break;
-            end = [y,x-1];
-            if(maze[end[0]][end[1]].val==width){
-                exit =1; break;}
+            case 'left':{
+                if (x -1 < 0)break;
 
-            curVal = maze[end[0]][end[1]].val;
-            maze[y][x-1].val = 'Q';
-            maze[y][x-1].visited = false;
-            maze[y][x-1].right = true;
-            maze[y][x].left = true;
-            getPaths.push(y );
-            getPaths.push(x - 1);
-            break;
-        }
-        case 'right':{
-            if (x +1 >width-1)break;
-            end = [y,x+1];
-            if(maze[end[0]][end[1]].val==width){
-                exit =1;
-                break;}
-            end = [y,x+1];
-            curVal = maze[end[0]][end[1]].val;
-            maze[y][x+1].val = 'Q';
-            maze[y][x+1].visited = false;
-            maze[y][x+1].left = true;
-            maze[y][x].right = true;
-            getPaths.push(y );
-            getPaths.push(x + 1);
-            break;
-        }
-        case 'up':{
-            if (y -1 < 0)break;
-            end = [y-1,x];
-            if(maze[end[0]][end[1]].val==width){
-                exit =1;
-                break;}
-            curVal = maze[end[0]][end[1]].val;
-            maze[y-1][x].val = 'Q';
-            maze[y-1][x].visited = false;
-            maze[y-1][x].bottom = true;
-            maze[y][x].top = true;
-            getPaths.push(y - 1);
-            getPaths.push(x);
-            break;
-        }
-        case 'down':{
-            if (y + 1 > height-1)break;
-            end = [y+1,x];
-            if(maze[end[0]][end[1]].val==width){
-                exit =1;
-                break;}
-            curVal = maze[end[0]][end[1]].val;
-            maze[y+1][x].val = 'Q';
-            maze[y+1][x].visited = false;
-            maze[y+1][x].top = true;
-            maze[y][x].bottom = true;
-            getPaths.push(y + 1);
-            getPaths.push(x);
-            break;
-        }
-        default : break;
+                if (maze[y][x-1].val == curVal-1){
+                    end = [y,x-1];
+                    curVal = maze[end[0]][end[1]].val;
+                    maze[y][x-1].Set = 'path';
+                    maze[y][x-1].visited = true;
+                    maze[y][x-1].right = true;
+                    maze[y][x].left = true;
+                    getPaths.push(y );
+                    getPaths.push(x - 1);
+                }
+                break;
+            }
 
+            case 'up':{
+                if (y -1 < 0)break;
+
+                if (maze[y-1][x].val == curVal-1){
+                    end = [y-1,x];
+                    curVal = maze[end[0]][end[1]].val;
+                    maze[y-1][x].Set=='path';
+                    maze[y-1][x].visited = true;
+                    maze[y-1][x].bottom = true;
+                    maze[y][x].top = true;
+                    getPaths.push(y - 1);
+                    getPaths.push(x);
+                }
+                break;
+            }
+
+            case 'right':{
+                if (x +1 >width-1)break;
+
+                if (maze[y][x + 1].val == curVal-1) {
+                    end = [y, x + 1];
+                    curVal = maze[end[0]][end[1]].val;
+                    maze[y][x + 1].Set = 'path';
+                    maze[y][x + 1].visited = true;
+                    maze[y][x + 1].left = true;
+                    maze[y][x].right = true;
+                    getPaths.push(y);
+                    getPaths.push(x + 1);
+                }
+                break;
+            }
+
+            case 'down':{
+                if (y + 1 > height-1)break;
+
+                if (maze[y+1][x].val == curVal-1) {
+                    end = [y + 1, x];
+                    curVal = maze[end[0]][end[1]].val;
+                    maze[y + 1][x].Set = 'path';
+                    maze[y + 1][x].visited = true;
+                    maze[y + 1][x].top = true;
+                    maze[y][x].bottom = true;
+                    getPaths.push(y + 1);
+                    getPaths.push(x);
+                }
+                break;
+            }
+
+            default : break;
+
+
+        }
 
     }
 
-}
-for(var i = 0;i<height;i++){
-     for (var j = 0;j<width;j++){
-         if ( i-1 < 0 || i+1 >= height || j-1 < 0 || j+1 >= width )
-             continue;
-         if(paths>=4){
-         if(j%4 == 0 && i%2 == 0){
-             maze[i][j].bottom = false;
-             maze[i+1][j].top = true;
-         }
-             }else if(paths<4){
-             if(j %3 ==0){
-                 maze[i][j].bottom = false;
-                 maze[i+1][j].top = false;
-                 maze[i][j].right = true;
-                 maze[i][j+1].left = true;
-             }
-         }
-     }
- }
-})();
-	
-    return (new Maze(maze));
+   return new Maze(maze);
 }
 
 Maze.View = function (domElem) {
@@ -268,12 +189,12 @@ Maze.View = function (domElem) {
         var container = domElem;
 		if (container.hasChildNodes()) {
 		container.removeChild(container.childNodes[0]);}
-
+        container.innerHTML = '';
                 return container;
     }
 
     this.render = function(maze){
-    var m = maze.Data;
+    var m = maze.data;
     var map = init(domElem);
     var rows = document.createDocumentFragment();
     var items = [];
@@ -281,44 +202,47 @@ Maze.View = function (domElem) {
 
     var height = m.length;
     var width = m[0].length;
+        var className;
+        var div;
 
-    for (var i = 0; i < height; i++) {
-        for (var j = 0; j < width; j++) {
-            if (m [i][j].bottom) {
-                if (m [i][j].right) {
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                if (m [i][j].bottom) {
+                    if (m [i][j].right) {
+                        var div = document.createElement('div');
+                        div.setAttribute('class', 'empty');
+                        div.innerHTML = m[i][j].val;
+                        items.push(div);
+                    }
+                    else {
+                        var div = document.createElement('div');
+                        div.setAttribute('class', 'rightBorder');
+                        div.innerHTML = m[i][j].val;
+                        items.push(div);
+                    }
+
+                } else if (m[i][j].right) {
                     var div = document.createElement('div');
-                    div.setAttribute('class', 'empty');
-                    //div.innerHTML = m[i][j].val;
+                    div.setAttribute('class', 'bottomBorder');
+                    div.innerHTML = m[i][j].val;
                     items.push(div);
                 }
                 else {
                     var div = document.createElement('div');
-                    div.setAttribute('class', 'rightBorder');
-                    //div.innerHTML = m[i][j].val;
+                    div.setAttribute('class', 'rbBorder');
+                    div.innerHTML = m[i][j].val;
                     items.push(div);
                 }
-
-            } else if (m[i][j].right) {
-                var div = document.createElement('div');
-                div.setAttribute('class', 'bottomBorder');
-                //div.innerHTML = m[i][j].val;
-                items.push(div);
-            }
-            else {
-                var div = document.createElement('div');
-                div.setAttribute('class', 'rbBorder');
-                //div.innerHTML = m[i][j].val;
-                items.push(div);
             }
         }
-    }
 
-    for (var i = 0; i < height; i++) {
 
-        var div = document.createElement('div');
-        div.setAttribute('class', 'row');
-        line.push(div);
-    }
+        for (var i = 0; i < height; i++) {
+
+            var div = document.createElement('div');
+            div.setAttribute('class', 'row');
+            line.push(div);
+        }
 
     for (var k = 0; k < height; k++) {
         rows.appendChild(line[k]);
@@ -343,23 +267,17 @@ Maze.View = function (domElem) {
 }
 }
 
-
-
 function use(){
 	
     var height = parseInt(document.getElementById("height").value);
     var width = parseInt(document.getElementById("width").value);
 
-    var maze = Maze.generate({height:height, width:width, start:[0,0], end:[7,7], paths:4});
+    var maze = Maze.generate({height:height, width:width, start:[1,0], end:[7,7], paths:4});
     var view = new Maze.View(document.querySelector('.map'));
 
     var x =  view.render(maze);
 
 }
-//var maze = Maze.generate(3,3);
-
-//console.log(maze.getData);
-
 
 
 
