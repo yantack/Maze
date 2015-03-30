@@ -86,7 +86,7 @@ Maze.View = function (domElem) {
             map.appendChild(rows);
 
 
-    }else{
+    }/*else{
             var m = maze.mazeP.data;
             var map = init(domElem);
             var rows = document.createDocumentFragment();
@@ -160,7 +160,7 @@ Maze.View = function (domElem) {
                 }
             }
             map.appendChild(rows);
-        }
+        }*/
 
 
     }
