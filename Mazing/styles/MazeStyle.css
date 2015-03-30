@@ -12,9 +12,9 @@ body {
 }
 
 .empty {
-    width: 40px;
-    height: 40px;
-    background: transparent;
+    width: 50px;
+    height: 50px;
+    /*background: transparent;*/
     display: inline-block;
 
 }
@@ -33,8 +33,8 @@ body {
 }	
 
 .rightBorder {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-size: cover;
     background-image: url(../images/jellyfish_vert.png);
     /*border-right: groove RGB(0,255,64);*/
@@ -44,8 +44,8 @@ body {
 }
 
 .bottomBorder {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-image: url(../images/jellyfish_hor.png);
     background-size: cover;
     display: inline-block;
@@ -53,8 +53,8 @@ body {
 }
 
 .rbBorder {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: url(../images/jellyfish_h+v.png);
     background-size: cover;
     display: inline-block;
