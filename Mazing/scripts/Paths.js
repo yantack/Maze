@@ -20,9 +20,10 @@ Maze.prototype.getPaths = function(start, finish,maze){
 }
 
 function findEnterFinish(start, finish,maze){
+
     var maze = maze.data;
-    var height = maze.height;
-    var width = maze.width;
+    var height = maze.length;
+    var width = maze[0].length;
     var end =[];
     var start = start;
     var finish = finish;
@@ -53,7 +54,8 @@ function findEnterFinish(start, finish,maze){
 
             if (maze[y][x - 1].val == curVal - 1 && maze[y][x].left == true) {
                 end = [y, x - 1];
-                maze[y][x - 1].Set = 'path';
+                maze[y][x].Set = 'pathEF';
+                maze[y][x - 1].Set = 'pathEF';
                 maze[y][x - 1].visited = true;
                 pathS.push({y:y, x:x-1});
             }
@@ -66,7 +68,8 @@ function findEnterFinish(start, finish,maze){
 
             if (maze[y - 1][x].val == curVal - 1 && maze[y][x].top == true) {
                 end = [y - 1, x];
-                maze[y - 1][x].Set == 'path';
+                maze[y][x].Set = 'pathEF';
+                maze[y - 1][x].Set == 'pathEF';
                 maze[y - 1][x].visited = true;
                 pathS.push({y:y-1, x:x});
 
@@ -80,7 +83,8 @@ function findEnterFinish(start, finish,maze){
 
             if (maze[y][x + 1].val == curVal - 1 && maze[y][x].right == true) {
                 end = [y, x + 1];
-                maze[y][x + 1].Set = 'path';
+                maze[y][x].Set = 'pathEF';
+                maze[y][x + 1].Set = 'pathEF';
                 maze[y][x + 1].visited = true;
                 pathS.push({y:y, x:x+1});
 
@@ -94,7 +98,8 @@ function findEnterFinish(start, finish,maze){
 
             if (maze[y + 1][x].val == curVal - 1 && maze[y][x].bottom == true) {
                 end = [y + 1, x];
-                maze[y + 1][x].Set = 'path';
+                maze[y][x].Set = 'pathEF';
+                maze[y + 1][x].Set = 'pathEF';
                 maze[y + 1][x].visited = true;
                 pathS.push({y:y+1, x:x});
             }

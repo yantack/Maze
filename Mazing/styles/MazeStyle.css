@@ -2,7 +2,7 @@ body {
 
     background-image: url(../images/kagaya_art_celestial.jpg);
     background-size: cover;
-    color: limegreen;
+    color: ivory;
     /*background: rgba(255,255,255,0.1);*/
 
 }
@@ -12,10 +12,8 @@ body {
 }
 
 .empty {
-    width: 50px;
-    height: 50px;
-    /*background: transparent;*/
-    display: inline-block;
+
+
 
 }
 
@@ -27,39 +25,40 @@ body {
     float:right;
     margin: auto;
     margin-right: 20%;
+    font-size: 0px;
     border-image: url(../images/border.png) 30 repeat repeat;
     border-width: medium;
 
+
 }	
 
-.rightBorder {
+.empty,.rightBorder,.bottomBorder,.rbBorder{
+    float: left;
     width: 50px;
     height: 50px;
     background-size: cover;
+    /*display: inline-block;*/
+    font-size: 0px;
+    overflow: visible;
+}
+
+.rightBorder {
+
     background-image: url(../images/jellyfish_vert.png);
     /*border-right: groove RGB(0,255,64);*/
-    display: inline-block;
-
 
 }
 
 .bottomBorder {
-    width: 50px;
-    height: 50px;
+
     background-image: url(../images/jellyfish_hor.png);
-    background-size: cover;
-    display: inline-block;
 
 }
 
 .rbBorder {
-    width: 50px;
-    height: 50px;
-    background: url(../images/jellyfish_h+v.png);
-    background-size: cover;
-    display: inline-block;
-    /*box-sizing: border-box;*/
 
+    background: url(../images/jellyfish_h+v.png);
+       /*box-sizing: border-box;*/
 
 }
 .inline{
@@ -68,6 +67,7 @@ display: inline-block;
 
 .row {
     display: block;
+    height: 50px;
 
 }
 

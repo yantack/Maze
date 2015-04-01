@@ -5,9 +5,9 @@ Maze.View = function (domElem) {
 
    var init = function(domElem) {
         var container = domElem;
-        if (container.hasChildNodes()) {
+        /*if (container.hasChildNodes()) {
             container.removeChild(container.childNodes[0]);
-        }
+        }*/
         container.innerHTML = '';
         return container;
     };
@@ -22,6 +22,8 @@ Maze.View = function (domElem) {
 
         var height = m.length;
         var width = m[0].length;
+            map.style.height = height;
+            map.style.width = width;
         var classStyle;
         var div;
 
@@ -86,7 +88,7 @@ Maze.View = function (domElem) {
             map.appendChild(rows);
 
 
-    }/*else{
+    }else{
             var m = maze.mazeP.data;
             var map = init(domElem);
             var rows = document.createDocumentFragment();
@@ -95,6 +97,8 @@ Maze.View = function (domElem) {
 
             var height = m.length;
             var width = m[0].length;
+            map.style.height = height*50 + 'px';
+            map.style.width = width*50 + 'px';
             var classStyle;
             var div;
             for (var i = 0; i < height; i++) {
@@ -103,14 +107,14 @@ Maze.View = function (domElem) {
                         if (m [i][j].right) {
                             div = document.createElement('div');
                             div.setAttribute('class', 'empty');
-                            classStyle = (m[i][j].Set == 'path') ? div.innerHTML = '<img src="\images/octopus.png"\width="25" height="25">'
+                            classStyle = (m[i][j].Set == 'pathEF') ? div.innerHTML = '<img src="\images/octopus.png"\width="20" height="20" align="top">'
                                 : div.innerHTML = '';
                             items.push(div);
                         }
                         else {
                             div = document.createElement('div');
                             div.setAttribute('class', 'rightBorder');
-                            classStyle = (m[i][j].Set == 'path') ? div.innerHTML = '<img src="\images/octopus.png"\width="25" height="25">'
+                            classStyle = (m[i][j].Set == 'pathEF') ? div.innerHTML = '<img src="\images/octopus.png"\width="20" height="20" align="top">'
                                 : div.innerHTML = '';
                             items.push(div);
                         }
@@ -118,49 +122,29 @@ Maze.View = function (domElem) {
                     } else if (m[i][j].right) {
                         div = document.createElement('div');
                         div.setAttribute('class', 'bottomBorder');
-                        classStyle = (m[i][j].Set == 'path') ? div.innerHTML = '<img src="\images/octopus.png"\width="25" height="25">'
+                        classStyle = (m[i][j].Set == 'pathEF') ? div.innerHTML = '<img src="\images/octopus.png"\width="20" height="20" align="top">'
                             : div.innerHTML = '';
                         items.push(div);
                     }
                     else {
                         div = document.createElement('div');
                         div.setAttribute('class', 'rbBorder');
-                        classStyle = (m[i][j].Set == 'path') ? div.innerHTML = '<img src="\images/octopus.png"\width="25" height="25">'
+                        classStyle = (m[i][j].Set == 'pathEF') ? div.innerHTML = '<img src="\images/octopus.png"\width="20" height="20" align="top">'
                             : div.innerHTML = '';
                         items.push(div);
                     }
                 }
             }
 
+            for (var i = 0; i < height*width; i++) {
 
-            for (var i = 0; i < height; i++) {
 
-                var div = document.createElement('div');
-                div.setAttribute('class', 'row');
-                line.push(div);
-            }
+                    rows.appendChild(items[i]);
 
-            for (var k = 0; k < height; k++) {
-                rows.appendChild(line[k]);
-            }
 
-            var t = 0;
-            var k = 0;
-            for (var i = 0; i < height; i++) {
-                for (t; t < m.height * width; t++) {
-
-                    rows.children[i].appendChild(items[t]);
-                    k++;
-                    if (k == width) {
-                        k = 0;
-                        t++;
-                        break;
-                    }
-
-                }
             }
             map.appendChild(rows);
-        }*/
+        }
 
 
     }
