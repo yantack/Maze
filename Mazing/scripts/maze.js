@@ -210,7 +210,11 @@ function use(){
     x = view.render(maze);
     var getPaths = maze.getPaths([3,3],[4,5],maze);
     console.log(getPaths);
-    view.render(getPaths);
+    /*view.render(getPaths);*/
+
+    setTimeout(function () {
+        view.render(getPaths);
+    }, 5000);
 
 
 }
