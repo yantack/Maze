@@ -23,19 +23,21 @@ Maze.Cell = function (val,right,bottom,left,top){
 
 Maze.generate = function(options) {
 
-    var height = options.height;
-    var width = options.width;
+    var height = (options.height) ? options.height : Math.floor(Math.random( ) * (10 - 5 + 1)) + 5;
+    var width = (options.width) ? options.width : Math.floor(Math.random( ) * (10 - 5 + 1)) + 5;
     var end =[];
     var start = [];
-    start[0] = options.start[0];
-    start[1] = options.start[1];
-    end[0] = options.end[0];
-    end[1] = options.end[1];
+    start[0] = (isNaN(options.start[0])) ? 0 : options.start[0];
+    start[1] = (isNaN(options.start[1])) ? 1 : options.start[1];
+    end[0] = (isNaN(options.end[0])) ? height-1 : options.end[0];
+    end[1] = (isNaN(options.end[1])) ? width-1 : options.end[1];
 	var curVal = 0;
-    var paths = options.paths;
+    var paths = (options.paths) ? options.paths : 2;
     var genPaths = [];
     var cases =['up','left','right','down'];
-    var n = 1;
+    var endForGen = [];
+    endForGen[0] = end[0];
+    endForGen[1] = end[1];
 
     var maze = [];
     for (var i = 0; i < height; i++) {
@@ -179,8 +181,8 @@ Maze.generate = function(options) {
         }
 
     }
-        end[0] = options.end[0];
-        end[1] = options.end[1];
+        end[0] = endForGen[0];
+        end[1] = endForGen[1];
         curVal = maze[end[0]][end[1]].val;
         paths --;
 }
