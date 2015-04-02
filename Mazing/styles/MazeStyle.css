@@ -63,6 +63,7 @@ body {
 }
 .inline{
 display: inline-block;
+margin: 1em;
 }
 
 .row {
